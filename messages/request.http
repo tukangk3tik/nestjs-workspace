@@ -1,0 +1,13 @@
+### List all messages
+GET http://localhost:3001/messages
+
+### Create a new message
+POST http://localhost:3001/messages
+Content-Type: application/json
+
+{
+  "text": "Hello, world!"
+}
+
+### List all messages
+GET http://localhost:3001/messages/123
