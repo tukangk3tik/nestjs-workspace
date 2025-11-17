@@ -3,7 +3,7 @@ POST http://localhost:3003/auth/signup
 Content-Type: application/json
 
 {
-  "email": "test123456@example.com",
+  "email": "test1234567@example.com",
   "password": "password123"
 }
 
@@ -12,9 +12,15 @@ POST http://localhost:3003/auth/signin
 Content-Type: application/json
 
 {
-  "email": "test123456@example.com",
+  "email": "test1234567@example.com",
   "password": "password123"
 }
+
+### Check who am I
+GET http://localhost:3003/auth/whoami
+
+### Sign in a user  
+POST http://localhost:3003/auth/signout
 
 ### Find one user by id
 GET http://localhost:3003/auth/2
@@ -36,3 +42,5 @@ Content-Type: application/json
   "email": "updatedemail@example.com",
   "password": "newpassword123"
 }
+
+

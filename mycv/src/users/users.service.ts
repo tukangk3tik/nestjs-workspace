@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,6 +13,9 @@ export class UsersService {
   }
 
   findOne(id: number) {
+    if (!id) {
+      throw new UnauthorizedException('User ID must be provided');
+    }
     return this.repo.findOneBy({ id });
   }
 
