@@ -19,7 +19,7 @@ Content-Type: application/json
 ### Check who am I
 GET http://localhost:3003/auth/whoami
 
-### Sign in a user  
+### Sign out a user  
 POST http://localhost:3003/auth/signout
 
 ### Find one user by id

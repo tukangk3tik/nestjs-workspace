@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
@@ -9,6 +10,20 @@ import { CurrentUserInterceptor } from './interceptors/current-user.interceptor'
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
   controllers: [UsersController],
-  providers: [UsersService, AuthService, CurrentUserInterceptor],
+  providers: [
+    UsersService, 
+    AuthService,
+    /**
+     * Apply the CurrentUserInterceptor globally within this module
+     * so that it runs for all routes in controllers in this module.
+     * 
+     * If you want it globally for the entire app, consider adding it
+     * in the AppModule instead.
+     */
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CurrentUserInterceptor
+    }
+  ],
 })
 export class UsersModule {}
