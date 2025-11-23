@@ -1,0 +1,13 @@
+
+POST http://localhost:3003/reports
+Content-Type: application/json
+
+{
+  "make": "Ford",
+  "model": "Mustang",
+  "year": 2020,
+  "mileage": 15000,
+  "price": 20000,
+  "latitude": 34.0522,
+  "longitude": -118.2437
+}
