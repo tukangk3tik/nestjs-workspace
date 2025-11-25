@@ -17,6 +17,8 @@ export class ReportDto {
   longitude: number;
   @Expose()
   latitude: number;
+  @Expose()
+  approved: boolean;
 
   /**
    * Transform to extract userId from the nested user object
