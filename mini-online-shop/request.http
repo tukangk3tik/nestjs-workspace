@@ -1,0 +1,36 @@
+
+### Create New User
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "Felix",
+  "email": "felix@mail.com",
+  "phone": "628323123123",
+  "password": "12123213123"
+}
+
+### Get All Users
+GET http://localhost:3000/users
+Content-Type: application/json
+
+### Get One Users
+GET http://localhost:3000/users/1
+Content-Type: application/json
+
+
+### Update One Users
+PATCH http://localhost:3000/users/1
+Content-Type: application/json
+
+{
+  "name": "Felix",
+  "email": "felix@mail.com",
+  "phone": "628323123123",
+  "password": "12123213123"
+}
+
+### Delete One Users
+DELETE http://localhost:3000/users/1
+Content-Type: application/json
+
