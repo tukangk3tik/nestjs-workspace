@@ -4,14 +4,14 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "name": "Felix",
-  "email": "felix@mail.com",
-  "phone": "628323123123",
+  "name": "Geovani",
+  "email": "geovani@mail.com",
+  "phone": "628323123",
   "password": "12123213123"
 }
 
 ### Get All Users
-GET http://localhost:3000/users
+GET http://localhost:3000/users?limit=1&offset=1
 Content-Type: application/json
 
 ### Get One Users
@@ -24,13 +24,11 @@ PATCH http://localhost:3000/users/1
 Content-Type: application/json
 
 {
-  "name": "Felix",
-  "email": "felix@mail.com",
-  "phone": "628323123123",
-  "password": "12123213123"
+  "name": "Felix Sr",
+  "email": "felix@mail.com"
 }
 
 ### Delete One Users
-DELETE http://localhost:3000/users/1
+DELETE http://localhost:3000/users/2
 Content-Type: application/json
 
