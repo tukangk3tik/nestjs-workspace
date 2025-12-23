@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: mini-online-shop-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: shop1234
+      POSTGRES_DB: mini-online-shop 
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data-mini-online-shop:/var/lib/postgresql/data
+    restart: unless-stopped
