@@ -1,19 +1,28 @@
 import { registerAs } from "@nestjs/config";
+import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 
 /**
  * Database Configuration Registration
  * 
  * Uses NestJS ConfigModule's registerAs() to create a namespaced configuration object
- * for database settings. This allows the database configuration to be accessed globally
- * throughout the application via the ConfigService.
+ * for PostgreSQL database connection. This configuration is type-safe and validated against
+ * TypeOrmModuleOptions, ensuring all required TypeORM options are properly defined.
  * 
- * @function registerAs - Registers a configuration namespace ('database') with a factory function
- * @param {string} 'database' - The namespace key used to access this config (e.g., config.get('database').url)
- * @param {Function} () => {...} - Factory function that returns the configuration object
+ * The configuration can be used as a provider via .asProvider() method, making it easy
+ * to inject into TypeOrmModule.forRootAsync().
  * 
- * @returns {Object} Configuration object containing:
- *   - url: The database connection string from DATASOURCE_URL environment variable
+ * Configuration properties:
+ * - type: 'postgres' - Specifies PostgreSQL as the database type
+ * - url: Database connection URL from DATASOURCE_URL environment variable
+ * - autoLoadEntities: true - Automatically discovers and loads TypeORM entities
+ * 
+ * @returns {Object} Typed configuration object conforming to TypeOrmModuleOptions
  */
-export default registerAs('database', () => ({
-  url: process.env.DATASOURCE_URL,
-}))
+export default registerAs('database', () => {
+  const config = {
+    type: 'postgres',
+    url: process.env.DATASOURCE_URL,
+    autoLoadEntities: true,
+  } as const satisfies TypeOrmModuleOptions;
+  return config;
+})
