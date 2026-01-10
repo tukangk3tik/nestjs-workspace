@@ -1,13 +1,13 @@
+import * as dotenv from 'dotenv';
+import * as dotenvExpand from 'dotenv-expand';
 import { DataSource } from 'typeorm';
 import { join } from 'path';
 
+dotenvExpand.expand(dotenv.config());
+
 export default new DataSource({
   type: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  username: 'postgres',
-  password: 'shop1234',
-  database: 'mini-online-shop',
+  url: process.env.DATASOURCE_URL,
   // Point to compiled JS when using the CLI against dist/
   entities: [join(__dirname, '..', '**', 'entities', '*.entity.js')],
   migrations: [join(__dirname, 'migrations', '*.js')],

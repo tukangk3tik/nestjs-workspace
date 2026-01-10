@@ -3,14 +3,12 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'shop1234',
-      database: 'mini-online-shop',
-      autoLoadEntities: true,
+    TypeOrmModule.forRootAsync({
+      useFactory: async () => ({
+        type: 'postgres',
+        url: process.env.DATASOURCE_URL,
+        autoLoadEntities: true,
+      })
     })
   ]
 })
