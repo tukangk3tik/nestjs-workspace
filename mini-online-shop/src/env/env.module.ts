@@ -5,7 +5,6 @@ import { ENV_VALIDATION_SCHEMA } from "./env.constants";
 @Module({
   imports: [
     ConfigModule.forRoot({
-      expandVariables: true,
       validationSchema: ENV_VALIDATION_SCHEMA
     }),
   ]
