@@ -11,6 +11,7 @@ import { OrderStatus } from '../enums/order-status.enum';
 import { User } from '../../../users/entities/user.entity';
 import { Payment } from '../../payments/entities/payment.entity';
 import { OrderItem } from './order-item.entity';
+import { Expose } from 'class-transformer';
 
 @Entity()
 export class Order {
@@ -35,4 +36,9 @@ export class Order {
 
   @OneToMany(() => OrderItem, (item) => item.order, { cascade: true })
   items: OrderItem[];
+
+  @Expose()
+  get total() {
+    return this.items?.reduce((total, item) => total + item.subTotal, 0);
+  }
 }

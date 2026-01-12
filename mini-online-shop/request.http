@@ -81,3 +81,11 @@ Content-Type: application/json
     }
   ]
 }
+
+### Get Orders
+GET http://localhost:3000/orders
+Content-Type: application/json
+
+### Get Order Details
+GET http://localhost:3000/orders/2
+Content-Type: application/json
