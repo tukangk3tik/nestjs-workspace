@@ -7,7 +7,7 @@ import {
 import { IsCurrency } from '../../../common/decorators/is-currency.decorator';
 import { IdDto } from '../../../common/dto/id.dto';
 import { IsEntity } from '../../../common/decorators/is-entity.decorator';
-import { idDtoIdentifier } from '../../../common/util/id.util';
+import { IdentifierFn } from '../../../common/util/id.util';
 
 export class CreateProductDto {
   @Length(2, 50)
@@ -21,7 +21,7 @@ export class CreateProductDto {
   readonly price: number;
 
   @ArrayNotEmpty()
-  @ArrayUnique(idDtoIdentifier)
+  @ArrayUnique(IdentifierFn.ID_DTO)
   @IsEntity()
   readonly categories: IdDto[];
 }

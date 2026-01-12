@@ -62,3 +62,22 @@ Content-Type: application/json
     { "id": 1 }
   ]
 }
+
+### Get Products
+GET http://localhost:3000/products
+Content-Type: application/json
+
+
+### Create New Order
+POST http://localhost:3000/orders
+Content-Type: application/json
+
+{
+  "customer": { "id": 6 },
+  "items": [
+    {
+      "product": { "id": 1 },
+      "quantity": 2
+    }
+  ]
+}
