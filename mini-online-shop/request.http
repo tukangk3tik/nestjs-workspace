@@ -87,9 +87,13 @@ GET http://localhost:3000/orders
 Content-Type: application/json
 
 ### Get Order Details
-GET http://localhost:3000/orders/2
+GET http://localhost:3000/orders/3
 Content-Type: application/json
 
 ### Create New Payment
 POST http://localhost:3000/payments/2
+Content-Type: application/json
+
+### Seeding the data
+POST http://localhost:3000/seeding
 Content-Type: application/json
