@@ -1,7 +1,14 @@
-import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { RegistryDates } from "../../../common/embedded/registry-dates.embedded";
-import { Category } from "../../categories/entities/category.entity";
-import { OrderItem } from "../../orders/entities/order-item.entity";
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { RegistryDates } from '../../../common/embedded/registry-dates.embedded';
+import { Category } from '../../categories/entities/category.entity';
+import { OrderItem } from '../../orders/entities/order-item.entity';
 
 @Entity()
 export class Product {
@@ -20,7 +27,7 @@ export class Product {
   @Column(() => RegistryDates, { prefix: false })
   registryDates: RegistryDates;
 
-  @ManyToMany(() => Category, category => category.products)
+  @ManyToMany(() => Category, (category) => category.products)
   @JoinTable({ name: 'product_to_category' })
   categories: Category[];
 

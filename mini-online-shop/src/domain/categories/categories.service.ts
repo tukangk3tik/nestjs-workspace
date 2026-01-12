@@ -1,4 +1,8 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,12 +15,12 @@ import { DEFAULT_PAGE_SIZE } from '../../common/util/common.constants';
 export class CategoriesService {
   constructor(
     @InjectRepository(Category)
-    private readonly categoryRepository: Repository<Category>
-  ){}
+    private readonly categoryRepository: Repository<Category>,
+  ) {}
 
   create(createCategoryDto: CreateCategoryDto) {
     const category = this.categoryRepository.create(createCategoryDto);
-    return this.categoryRepository.save(category); 
+    return this.categoryRepository.save(category);
   }
 
   findAll(paginationDto: PaginationDto) {
@@ -29,10 +33,10 @@ export class CategoriesService {
 
   async findOne(id: number) {
     const category = await this.categoryRepository.findOne({
-       where: { id },
-       relations: {
+      where: { id },
+      relations: {
         products: true,
-       }
+      },
     });
     if (!category) {
       throw new NotFoundException('Category not found');
@@ -43,8 +47,8 @@ export class CategoriesService {
   async update(id: number, updateCategoryDto: UpdateCategoryDto) {
     const category = await this.categoryRepository.preload({
       id,
-      ...updateCategoryDto
-    }); 
+      ...updateCategoryDto,
+    });
     if (!category) {
       throw new NotFoundException('Category not found');
     }
@@ -54,8 +58,10 @@ export class CategoriesService {
   async remove(id: number) {
     const category = await this.findOne(id);
     if (category.products.length > 0) {
-      throw new ConflictException('Cannot delete category with associated products');
+      throw new ConflictException(
+        'Cannot delete category with associated products',
+      );
     }
-    return this.categoryRepository.remove(category); 
+    return this.categoryRepository.remove(category);
   }
 }

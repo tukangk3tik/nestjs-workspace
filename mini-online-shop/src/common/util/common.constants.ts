@@ -1,4 +1,4 @@
-import { ValidationPipeOptions } from "@nestjs/common";
+import { ValidationPipeOptions } from '@nestjs/common';
 
 export const VALIDATION_PIPE_OPTIONS: ValidationPipeOptions = {
   // Keep only properties that are decorated in the DTO;
@@ -14,11 +14,12 @@ export const VALIDATION_PIPE_OPTIONS: ValidationPipeOptions = {
     // Allow implicit type conversion based on the DTO's
     // reflected property types (e.g., "42" -> 42, "true" -> true)
     enableImplicitConversion: true,
-  }
-}
+  },
+};
 
 export const DEFAULT_PAGE_SIZE = {
   USER: 10,
   ORDER: 5,
   CATEGORY: 30,
+  PRODUCT: 10,
 } as const satisfies Record<string, number>;

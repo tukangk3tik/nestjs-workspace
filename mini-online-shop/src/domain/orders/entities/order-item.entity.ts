@@ -1,12 +1,12 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
-import { Product } from "../../products/entities/product.entity";
-import { Order } from "./order.entity";
+import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Product } from '../../products/entities/product.entity';
+import { Order } from './order.entity';
 
 @Entity()
 export class OrderItem {
   @PrimaryColumn()
   orderId: number;
-  
+
   @PrimaryColumn()
   productId: number;
 

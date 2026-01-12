@@ -6,8 +6,8 @@ import { VALIDATION_PIPE_OPTIONS } from './util/common.constants';
   providers: [
     {
       provide: APP_PIPE,
-      useValue: new ValidationPipe(VALIDATION_PIPE_OPTIONS)
-    }
-  ]
+      useValue: new ValidationPipe(VALIDATION_PIPE_OPTIONS),
+    },
+  ],
 })
 export class CommonModule {}

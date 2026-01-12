@@ -11,12 +11,12 @@ import { DEFAULT_PAGE_SIZE } from '../common/util/common.constants';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private readonly userRepository: Repository<User>
-  ){}
+    private readonly userRepository: Repository<User>,
+  ) {}
 
   create(createUserDto: CreateUserDto) {
     const user = this.userRepository.create(createUserDto);
-    return this.userRepository.save(user); 
+    return this.userRepository.save(user);
   }
 
   findAll(paginationDto: PaginationDto) {
@@ -29,10 +29,10 @@ export class UsersService {
 
   async findOne(id: number) {
     const user = await this.userRepository.findOne({
-       where: { id },
-       relations: {
+      where: { id },
+      relations: {
         orders: true,
-       }
+      },
     });
     if (!user) {
       throw new NotFoundException('User not found');
@@ -43,8 +43,8 @@ export class UsersService {
   async update(id: number, updateUserDto: UpdateUserDto) {
     const user = await this.userRepository.preload({
       id,
-      ...updateUserDto
-    }); 
+      ...updateUserDto,
+    });
     if (!user) {
       throw new NotFoundException('User not found');
     }
@@ -53,6 +53,6 @@ export class UsersService {
 
   async remove(id: number) {
     const user = await this.findOne(id);
-    return this.userRepository.remove(user); 
+    return this.userRepository.remove(user);
   }
 }

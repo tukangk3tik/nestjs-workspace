@@ -38,9 +38,27 @@ POST http://localhost:3000/categories
 Content-Type: application/json
 
 {
-  "name": "toys"
+  "name": "electronic"
 }
 
 ### Get All Categories
 GET http://localhost:3000/categories
 Content-Type: application/json
+
+### Delete Categories
+DELETE http://localhost:3000/categories/1
+Content-Type: application/json
+
+
+
+### Create New Products
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+  "name": "Ball",
+  "price": 2.5,
+  "categories": [
+    { "id": 1 }
+  ]
+}

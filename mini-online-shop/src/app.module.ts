@@ -11,7 +11,16 @@ import { CategoriesModule } from './domain/categories/categories.module';
 import { ProductsModule } from './domain/products/products.module';
 
 @Module({
-  imports: [EnvModule, DatabaseModule, UsersModule, CommonModule, OrdersModule, PaymentsModule, CategoriesModule, ProductsModule],
+  imports: [
+    EnvModule,
+    DatabaseModule,
+    UsersModule,
+    CommonModule,
+    OrdersModule,
+    PaymentsModule,
+    CategoriesModule,
+    ProductsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
