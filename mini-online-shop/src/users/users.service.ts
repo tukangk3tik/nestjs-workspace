@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -31,7 +35,10 @@ export class UsersService {
     const user = await this.userRepository.findOne({
       where: { id },
       relations: {
-        orders: true,
+        orders: {
+          items: true,
+          payment: true,
+        },
       },
     });
     if (!user) {
@@ -51,8 +58,32 @@ export class UsersService {
     return this.userRepository.save(user);
   }
 
-  async remove(id: number) {
+  async remove(id: number, soft: boolean) {
     const user = await this.findOne(id);
-    return this.userRepository.remove(user);
+    return soft
+      ? this.userRepository.softRemove(user)
+      : this.userRepository.remove(user);
+  }
+
+  async recover(id: number) {
+    const user = await this.userRepository.findOne({
+      where: { id },
+      relations: {
+        orders: {
+          items: true,
+          payment: true,
+        },
+      },
+      withDeleted: true,
+    });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    if (!user.isDeleted) {
+      throw new ConflictException('User not deleted');
+    }
+
+    return this.userRepository.recover(user);
   }
 }

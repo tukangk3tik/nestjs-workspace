@@ -6,7 +6,7 @@ import {
 } from 'class-validator';
 import { IsCurrency } from '../../../common/decorators/validators/is-currency.decorator';
 import { IdDto } from '../../../common/dto/id.dto';
-import { IsEntity } from '../../../common/decorators/is-entity.decorator';
+import { IsEntity } from '../../../common/decorators/validators/is-entity.decorator';
 import { IdentifierFn } from '../../../common/util/id.util';
 
 export class CreateProductDto {
