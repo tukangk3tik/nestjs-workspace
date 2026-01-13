@@ -20,12 +20,11 @@ Content-Type: application/json
 
 
 ### Update One Users
-PATCH http://localhost:3000/users/1
+PATCH http://localhost:3000/users/8
 Content-Type: application/json
 
 {
-  "name": "Felix Sr",
-  "email": "felix@mail.com"
+  "password": "NewP@ssw0rd!"
 }
 
 ### Recover One Users

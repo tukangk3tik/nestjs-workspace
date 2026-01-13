@@ -1,18 +1,10 @@
-import {
-  buildMessage,
-  matches,
-  ValidateBy,
-  ValidationOptions,
-} from 'class-validator';
-
-const PASSWORD_REGEX =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[a-zA-Z\d@$!%*?&]{8,20}$/;
-
-const IS_PASSWORD_KEY = 'isPassword';
-
-const isPassword = (value: string): boolean => {
-  return matches(value, PASSWORD_REGEX);
-};
+import { applyDecorators } from '@nestjs/common';
+import { Length, ValidationOptions } from 'class-validator';
+import { ContainSpecialChar } from './text-validation/contain-specialchar-decorator';
+import { ContainUppercaseLetter } from './text-validation/contain-uppercase-letter.decorator';
+import { OnlyRequiredChar } from './text-validation/only-required-char.decorator';
+import { ContainNumber } from './text-validation/contain-number.decorator';
+import { ContainLowercaseLetter } from './text-validation/contain-lowercase-letter.decorator';
 
 /**
  * Checks if the value is a string following these rules:
@@ -26,16 +18,11 @@ const isPassword = (value: string): boolean => {
 export const IsPassword = (
   validationOptions?: ValidationOptions,
 ): PropertyDecorator =>
-  ValidateBy(
-    {
-      name: IS_PASSWORD_KEY,
-      validator: {
-        validate: (value): boolean => isPassword(value as string),
-        defaultMessage: buildMessage(
-          (eachPrefix) => eachPrefix + '$property must be a valid password',
-          validationOptions,
-        ),
-      },
-    },
-    validationOptions,
+  applyDecorators(
+    ContainLowercaseLetter(validationOptions),
+    ContainUppercaseLetter(validationOptions),
+    ContainSpecialChar(validationOptions),
+    ContainNumber(validationOptions),
+    OnlyRequiredChar(validationOptions),
+    Length(8, 20, validationOptions),
   );
