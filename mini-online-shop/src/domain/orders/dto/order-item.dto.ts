@@ -1,4 +1,4 @@
-import { IsCardinal } from '../../../common/decorators/is-cardinal.decorator';
+import { IsCardinal } from '../../../common/decorators/validators/is-cardinal.decorator';
 import { IsEntity } from '../../../common/decorators/is-entity.decorator';
 import { IdDto } from '../../../common/dto/id.dto';
 
