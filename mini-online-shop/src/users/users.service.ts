@@ -10,6 +10,7 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { PaginationDto } from '../common/dto/pagination.dto';
 import { DEFAULT_PAGE_SIZE } from '../common/util/common.constants';
+import { genSalt, hash } from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -18,8 +19,14 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
-    const user = this.userRepository.create(createUserDto);
+  async create(createUserDto: CreateUserDto) {
+    const { password } = createUserDto;
+    const hashedPassword = await this.hashPassword(password);
+
+    const user = this.userRepository.create({
+      ...createUserDto,
+      password: hashedPassword,
+    });
     return this.userRepository.save(user);
   }
 
@@ -48,9 +55,13 @@ export class UsersService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
+    const { password } = updateUserDto;
+    const hashedPassword = password && (await this.hashPassword(password));
+
     const user = await this.userRepository.preload({
       id,
       ...updateUserDto,
+      password: hashedPassword,
     });
     if (!user) {
       throw new NotFoundException('User not found');
@@ -85,5 +96,10 @@ export class UsersService {
     }
 
     return this.userRepository.recover(user);
+  }
+
+  private async hashPassword(password: string) {
+    const salt = await genSalt();
+    return hash(password, salt); // Placeholder
   }
 }
