@@ -10,18 +10,20 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { PaginationDto } from '../common/dto/pagination.dto';
 import { DEFAULT_PAGE_SIZE } from '../common/util/common.constants';
-import { genSalt, hash } from 'bcrypt';
+import { HashingService } from '../auth/hashing/hashing.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+
+    private readonly hashingService: HashingService,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
     const { password } = createUserDto;
-    const hashedPassword = await this.hashPassword(password);
+    const hashedPassword = await this.hashingService.hash(password);
 
     const user = this.userRepository.create({
       ...createUserDto,
@@ -56,7 +58,8 @@ export class UsersService {
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     const { password } = updateUserDto;
-    const hashedPassword = password && (await this.hashPassword(password));
+    const hashedPassword =
+      password && (await this.hashingService.hash(password));
 
     const user = await this.userRepository.preload({
       id,
@@ -96,10 +99,5 @@ export class UsersService {
     }
 
     return this.userRepository.recover(user);
-  }
-
-  private async hashPassword(password: string) {
-    const salt = await genSalt();
-    return hash(password, salt); // Placeholder
   }
 }

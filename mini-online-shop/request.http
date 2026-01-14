@@ -24,7 +24,7 @@ PATCH http://localhost:3000/users/8
 Content-Type: application/json
 
 {
-  "password": "NewP@ssw0rd!"
+  "password": "NewP@ssw0rd123!"
 }
 
 ### Recover One Users
