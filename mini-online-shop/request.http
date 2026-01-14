@@ -100,3 +100,12 @@ Content-Type: application/json
 ### Seeding the data
 POST http://localhost:3000/seeding
 Content-Type: application/json
+
+### Login User
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "jarulf@mail.com",
+  "password": "NewP@ssw0rd12345!"
+}
