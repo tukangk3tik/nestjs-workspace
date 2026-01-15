@@ -3,9 +3,10 @@ import {
   HttpCode,
   HttpStatus,
   Post,
-  Request,
+  Res,
   UseGuards,
 } from '@nestjs/common';
+import type { Response } from 'express';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
 import { User } from './decorators/user.decorator';
@@ -18,7 +19,15 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  login(@User() user: RequestUser) {
-    return user;
+  login(
+    @User() user: RequestUser,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const token = this.authService.login(user);
+    response.cookie('token', token, {
+      secure: true,
+      httpOnly: true,
+      sameSite: true,
+    });
   }
 }

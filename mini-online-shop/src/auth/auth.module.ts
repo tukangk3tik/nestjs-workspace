@@ -9,9 +9,15 @@ import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './strategies/local.strategy';
 import { ValidationMiddleware } from './middleware/validation/validation.middleware';
 import { LoginDto } from './dto/login.dto';
+import { JwtModule } from '@nestjs/jwt';
+import jwtConfig from './config/jwt.config';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), PassportModule],
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    PassportModule,
+    JwtModule.registerAsync(jwtConfig.asProvider()),
+  ],
   controllers: [AuthController],
   providers: [
     AuthService,
