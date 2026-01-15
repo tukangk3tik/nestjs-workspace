@@ -11,12 +11,15 @@ import { ValidationMiddleware } from './middleware/validation/validation.middlew
 import { LoginDto } from './dto/login.dto';
 import { JwtModule } from '@nestjs/jwt';
 import jwtConfig from './config/jwt.config';
+import { ConfigModule } from '@nestjs/config';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
     PassportModule,
     JwtModule.registerAsync(jwtConfig.asProvider()),
+    ConfigModule.forFeature(jwtConfig),
   ],
   controllers: [AuthController],
   providers: [
@@ -26,6 +29,7 @@ import jwtConfig from './config/jwt.config';
       useClass: BcryptService,
     },
     LocalStrategy,
+    JwtStrategy,
   ],
   exports: [HashingService],
 })

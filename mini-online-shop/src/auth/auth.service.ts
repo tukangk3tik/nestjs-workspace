@@ -34,8 +34,21 @@ export class AuthService {
     return requestUser;
   }
 
+  async validateJwt(payload: JwtPayload) {
+    const user = await this.userRepository.findOneBy({ id: payload.sub });
+    if (!user) {
+      throw new UnauthorizedException('Invalid token');
+    }
+    const requestUser: RequestUser = { id: payload.sub };
+    return requestUser;
+  }
+
   login(user: RequestUser) {
     const payload: JwtPayload = { sub: user.id };
     return this.jwtService.sign(payload);
+  }
+
+  getProfile(id: number) {
+    return this.userRepository.findOneBy({ id });
   }
 }

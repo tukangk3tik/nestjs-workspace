@@ -109,3 +109,8 @@ Content-Type: application/json
   "email": "jarulf@mail.com",
   "password": "NewP@ssw0rd12345!"
 }
+
+### Login User
+GET http://localhost:3000/auth/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjgsImlhdCI6MTc2ODQ3MjQ4MiwiZXhwIjoxNzY5MDc3MjgyfQ.y1vAqlW62bPhTwa-B8FHAXRMNOo60GraOb7WtrWd1Xs
+Content-Type: application/json
