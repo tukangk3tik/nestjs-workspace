@@ -115,3 +115,12 @@ Content-Type: application/json
 GET http://localhost:3000/auth/profile
 Authorization: Bearer 
 Content-Type: application/json
+
+### Login User
+PATCH http://localhost:3000/auth/9/assign-role
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjExLCJpYXQiOjE3Njg0OTg3MzIsImV4cCI6MTc2OTEwMzUzMn0.NmLiOpmGV4rgA3dKwFmCH_F9kD61Bp66KTOiMXutrNI
+Content-Type: application/json
+
+{
+  "role": "MANAGER"
+}
