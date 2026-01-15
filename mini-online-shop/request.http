@@ -102,11 +102,12 @@ POST http://localhost:3000/seeding
 Content-Type: application/json
 
 ### Login User
+# @name login_req
 POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "jarulf@mail.com",
+  "email": "admin@mail.com",
   "password": "NewP@ssw0rd12345!"
 }
 

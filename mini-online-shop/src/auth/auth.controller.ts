@@ -34,6 +34,7 @@ export class AuthController {
     });
   }
 
+  @Public()
   @Get('profile')
   getProfile(@User() { id }: RequestUser) {
     return this.authService.getProfile(id);
